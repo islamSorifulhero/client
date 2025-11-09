@@ -1,31 +1,36 @@
+// src/pages/AllIssues.jsx
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AllIssues = () => {
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    const dummyData = [
-      { id: 1, title: "Overflowing garbage on Road 21", category: "Garbage" },
-      { id: 2, title: "Broken footpath near Gulshan Circle", category: "Infrastructure" },
-    ];
-    setIssues(dummyData);
+    axios.get("http://localhost:5000/api/issues")
+      .then(res => setIssues(res.data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-green-700 mb-4">All Issues</h2>
-      {issues.length === 0 ? (
-        <p>No issues found.</p>
-      ) : (
-        <ul className="space-y-3">
-          {issues.map((issue) => (
-            <li key={issue.id} className="p-4 bg-white rounded shadow">
-              <p><strong>Title:</strong> {issue.title}</p>
-              <p><strong>Category:</strong> {issue.category}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4 text-green-700">All Issues</h1>
+      <div className="grid md:grid-cols-3 gap-6">
+        {issues.map(issue => (
+          <div key={issue._id} className="bg-white rounded shadow p-4 flex flex-col">
+            <img src={issue.image} alt={issue.title} className="h-40 w-full object-cover rounded mb-2" />
+            <h2 className="text-lg font-semibold">{issue.title}</h2>
+            <p className="text-sm text-gray-500">{issue.category} | {issue.location}</p>
+            <p className="mt-1 font-bold">৳{issue.amount}</p>
+            <Link
+              to={`/issue/${issue._id}`}
+              className="mt-auto bg-green-700 text-white text-center py-2 rounded hover:bg-green-600"
+            >
+              See Details
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
