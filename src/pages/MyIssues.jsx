@@ -1,31 +1,39 @@
+// src/component/pages/MyIssues.jsx
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const MyIssues = () => {
   const [issues, setIssues] = useState([]);
+  const [email, setEmail] = useState(""); // you can later replace with logged-in user email
 
   useEffect(() => {
+    // example static email (replace later with actual logged user)
+    const userEmail = "user@mail.com";
+    setEmail(userEmail);
 
-    const myDummyIssues = [
-      { id: 1, title: "Overflowing garbage on Road 21", status: "Ongoing" },
-      { id: 2, title: "Broken footpath near Gulshan Circle", status: "Completed" },
-    ];
-    setIssues(myDummyIssues);
+    axios
+      .get(`http://localhost:5000/api/issues?email=${userEmail}`)
+      .then(res => setIssues(res.data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-green-700 mb-4">My Issues</h2>
+      <h1 className="text-2xl font-bold text-green-700 mb-4">My Reported Issues</h1>
       {issues.length === 0 ? (
         <p>No issues reported yet.</p>
       ) : (
-        <ul className="space-y-3">
-          {issues.map((issue) => (
-            <li key={issue.id} className="p-3 bg-white rounded shadow">
-              <p><strong>Title:</strong> {issue.title}</p>
-              <p><strong>Status:</strong> {issue.status}</p>
-            </li>
+        <div className="grid md:grid-cols-3 gap-6">
+          {issues.map(issue => (
+            <div key={issue._id} className="bg-white rounded shadow p-4">
+              <img src={issue.image} alt={issue.title} className="h-40 w-full object-cover rounded mb-2" />
+              <h2 className="text-lg font-semibold">{issue.title}</h2>
+              <p className="text-sm text-gray-500">{issue.category} | {issue.location}</p>
+              <p className="mt-1 font-bold">৳{issue.amount}</p>
+              <p className="text-xs text-gray-500 mt-1">Date: {new Date(issue.date).toLocaleDateString()}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
