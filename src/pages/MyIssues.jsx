@@ -1,13 +1,12 @@
-// src/component/pages/MyIssues.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const MyIssues = () => {
   const [issues, setIssues] = useState([]);
-  const [email, setEmail] = useState(""); // you can later replace with logged-in user email
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    // example static email (replace later with actual logged user)
+
     const userEmail = "user@mail.com";
     setEmail(userEmail);
 
@@ -17,6 +16,7 @@ const MyIssues = () => {
       .catch(err => console.error(err));
   }, []);
 
+  
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-green-700 mb-4">My Reported Issues</h1>
