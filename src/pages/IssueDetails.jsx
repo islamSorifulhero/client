@@ -6,82 +6,114 @@ const IssueDetails = () => {
   const { id } = useParams();
   const [issue, setIssue] = useState(null);
   const [contributions, setContributions] = useState([]);
-  const [amount, setAmount] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("user1@mail.com");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    issueId: id,
+    amount: "",
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    additionalInfo: ""
+  });
 
+  // Fetch issue details
   useEffect(() => {
     axios.get(`http://localhost:5000/api/issues/${id}`)
       .then(res => setIssue(res.data))
       .catch(err => console.error(err));
+  }, [id]);
 
+  // Fetch contributions
+  useEffect(() => {
     axios.get(`http://localhost:5000/api/contributions/${id}`)
       .then(res => setContributions(res.data))
       .catch(err => console.error(err));
   }, [id]);
 
-  const handleContribution = () => {
-    const data = {
-      issueId: id,
-      amount,
-      name,
-      email,
-      phone,
-      address,
-      date: new Date()
-    };
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-    axios.post("http://localhost:5000/api/contributions", data)
+  const handleSubmit = e => {
+    e.preventDefault();
+    axios.post("http://localhost:5000/api/contributions", formData)
       .then(res => {
-        alert("✅ Contribution Added!");
-        setContributions([...contributions, data]);
-        setAmount(""); setName(""); setPhone(""); setAddress("");
+        alert("✅ Contribution added successfully!");
+        setShowModal(false);
+        setContributions(prev => [...prev, formData]);
       })
       .catch(err => console.error(err));
   };
 
-  if (!issue) return <p>Loading...</p>;
+  if (!issue) return <p className="p-6">Loading...</p>;
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold text-green-700 mb-3">{issue.title}</h1>
-      <img src={issue.image} alt={issue.title} className="w-full h-64 object-cover rounded mb-3" />
+      <h1 className="text-3xl font-bold text-green-700 mb-4">{issue.title}</h1>
+      <img src={issue.image} alt={issue.title} className="w-full h-60 object-cover rounded mb-4" />
       <p><strong>Category:</strong> {issue.category}</p>
       <p><strong>Location:</strong> {issue.location}</p>
       <p><strong>Description:</strong> {issue.description}</p>
-      <p><strong>Suggested Budget:</strong> ৳{issue.amount}</p>
       <p><strong>Date:</strong> {new Date(issue.date).toLocaleDateString()}</p>
+      <p><strong>Suggested Fix Budget:</strong> ৳{issue.amount}</p>
 
-      <div className="mt-6 p-4 border rounded shadow">
-        <h2 className="font-bold text-lg mb-2">Pay Contribution</h2>
-        <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="block mb-2 border p-2 w-full"/>
-        <input type="text" placeholder="Amount" value={amount} onChange={e => setAmount(e.target.value)} className="block mb-2 border p-2 w-full"/>
-        <input type="text" placeholder="Phone" value={phone} onChange={e => setPhone(e.target.value)} className="block mb-2 border p-2 w-full"/>
-        <input type="text" placeholder="Address" value={address} onChange={e => setAddress(e.target.value)} className="block mb-2 border p-2 w-full"/>
-        <button onClick={handleContribution} className="bg-green-700 text-white py-2 px-4 rounded hover:bg-green-600">Submit</button>
-      </div>
+      <button
+        className="mt-4 bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600"
+        onClick={() => setShowModal(true)}
+      >
+        Pay Clean-Up Contribution
+      </button>
 
-      <h2 className="text-xl font-bold mt-6 mb-2">Contributors</h2>
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr>
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Amount</th>
-            <th className="border p-2">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contributions.map((c, idx) => (
-            <tr key={idx}>
-              <td className="border p-2">{c.name}</td>
-              <td className="border p-2">৳{c.amount}</td>
-              <td className="border p-2">{c.email}</td>
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96 relative">
+            <button
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+              onClick={() => setShowModal(false)}
+            >
+              ✕
+            </button>
+            <h2 className="text-xl font-bold mb-4">Add Contribution</h2>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required className="w-full p-2 border rounded" />
+              <input type="email" name="email" placeholder="Your Email" onChange={handleChange} required className="w-full p-2 border rounded" />
+              <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} className="w-full p-2 border rounded" />
+              <input type="text" name="address" placeholder="Address" onChange={handleChange} className="w-full p-2 border rounded" />
+              <input type="number" name="amount" placeholder="Amount" onChange={handleChange} required className="w-full p-2 border rounded" />
+              <textarea name="additionalInfo" placeholder="Additional Info" onChange={handleChange} className="w-full p-2 border rounded"></textarea>
+              <button type="submit" className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-600">Submit</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Contributors Table */}
+      <h2 className="text-2xl font-bold mt-6 mb-2">Contributors</h2>
+      {contributions.length === 0 ? (
+        <p>No contributions yet.</p>
+      ) : (
+        <table className="w-full border-collapse border">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="border px-2 py-1">Name</th>
+              <th className="border px-2 py-1">Email</th>
+              <th className="border px-2 py-1">Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {contributions.map((c, i) => (
+              <tr key={i}>
+                <td className="border px-2 py-1">{c.name}</td>
+                <td className="border px-2 py-1">{c.email}</td>
+                <td className="border px-2 py-1">৳{c.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
