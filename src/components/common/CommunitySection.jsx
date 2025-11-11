@@ -2,39 +2,52 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const CommunitySection = () => {
-  const [stats, setStats] = useState({ users: 0, resolved: 0, pending: 0 });
+  const [stats, setStats] = useState({
+    users: 0,
+    resolved: 0,
+    pending: 0,
+  });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/community-stats")
-      .then((res) => setStats(res.data))
+    // backend থেকে ডেটা আনো
+    axios.get("http://localhost:5000/api/stats")
+      .then((res) => {
+        setStats({
+          users: res.data.totalUsers,
+          resolved: res.data.issuesResolved,
+          pending: res.data.issuesPending,
+        });
+      })
       .catch((err) => console.error(err));
   }, []);
 
   return (
-    <div className="my-10 bg-green-50 p-6 rounded shadow text-center">
-      <h2 className="text-2xl font-bold text-green-700 mb-6">Community Stats</h2>
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-xl font-bold">{stats.users}</p>
-          <p className="text-gray-600">Registered Users</p>
-        </div>
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-xl font-bold">{stats.resolved}</p>
-          <p className="text-gray-600">Issues Resolved</p>
-        </div>
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-xl font-bold">{stats.pending}</p>
-          <p className="text-gray-600">Pending Issues</p>
-        </div>
-      </div>
+    <section className="bg-green-50 py-16">
+      <div className="max-w-6xl mx-auto px-6 text-center">
+        <h2 className="text-4xl font-bold text-green-700 mb-12">Community Impact</h2>
 
-      <div className="mt-8">
-        <button className="bg-green-700 text-white px-6 py-3 rounded hover:bg-green-600">
-          Join Clean Drive
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+          <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
+            <span className="text-5xl font-bold text-green-600">{stats.users}</span>
+            <p className="mt-2 text-gray-600 font-semibold">Registered Users</p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
+            <span className="text-5xl font-bold text-green-600">{stats.resolved}</span>
+            <p className="mt-2 text-gray-600 font-semibold">Issues Resolved</p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
+            <span className="text-5xl font-bold text-green-600">{stats.pending}</span>
+            <p className="mt-2 text-gray-600 font-semibold">Pending Issues</p>
+          </div>
+        </div>
+
+        <button className="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition duration-300">
+          Join Clean Drive 🌿
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 
