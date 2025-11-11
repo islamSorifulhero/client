@@ -10,97 +10,56 @@ const Navbar = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/login");
-      })
+      .then(() => navigate("/login"))
       .catch((err) => console.error(err));
   };
 
+  const navLinks = [
+    { path: "/", label: "Home" },
+    { path: "/all-issues", label: "All Issues" },
+    { path: "/add-issue", label: "Add Issue", private: true },
+    { path: "/my-issues", label: "My Issues", private: true },
+    { path: "/my-contributions", label: "My Contributions", private: true },
+    // { path: "/add-contribution", label: "Add Contribution", private: true },
+  ];
+
   return (
-    <nav className="bg-green-700 text-white px-6 py-3 flex justify-between items-center">
+    <nav className="bg-green-700 text-white px-6 py-4 flex justify-between items-center relative">
       {/* Logo */}
-      <h1 className="text-2xl font-bold tracking-wide cursor-pointer" onClick={() => navigate("/")}>
+      <h1
+        onClick={() => navigate("/")}
+        className="text-2xl font-bold cursor-pointer"
+      >
         CleanCity
       </h1>
 
-      {/* Navigation Links */}
-      <div className="flex items-center space-x-5">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? "underline font-semibold" : "hover:underline"
-          }
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/all-issues"
-          className={({ isActive }) =>
-            isActive ? "underline font-semibold" : "hover:underline"
-          }
-        >
-          All Issues
-        </NavLink>
-
-        {user ? (
-          <>
-            <NavLink
-              to="/add-issue"
-              className={({ isActive }) =>
-                isActive ? "underline font-semibold" : "hover:underline"
-              }
-            >
-              Add Issue
-            </NavLink>
-            <NavLink
-              to="/my-issues"
-              className={({ isActive }) =>
-                isActive ? "underline font-semibold" : "hover:underline"
-              }
-            >
-              My Issues
-            </NavLink>
-            <NavLink
-              to="/my-contributions"
-              className={({ isActive }) =>
-                isActive ? "underline font-semibold" : "hover:underline"
-              }
-            >
-              My Contributions
-            </NavLink>
-
-            {/* Avatar dropdown */}
-            <div className="relative">
-              <div
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="w-9 h-9 rounded-full bg-white text-green-700 font-bold flex items-center justify-center cursor-pointer"
+      {/* Desktop Links */}
+      <div className="hidden md:flex space-x-5 items-center">
+        {navLinks.map(
+          (link) =>
+            (!link.private || user) && (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  isActive ? "underline font-semibold" : "hover:underline"
+                }
               >
-                {user.displayName
-                  ? user.displayName.charAt(0).toUpperCase()
-                  : user.email.charAt(0).toUpperCase()}
-              </div>
+                {link.label}
+              </NavLink>
+            )
+        )}
 
-              {menuOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white text-green-700 rounded-lg shadow-lg z-10">
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 hover:bg-green-100 rounded"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          </>
-        ) : (
+        {!user ? (
           <>
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                isActive ? "underline font-semibold" : "hover:underline"
+                isActive ? "underline" : "hover:underline"
               }
             >
               Login
@@ -108,14 +67,92 @@ const Navbar = () => {
             <NavLink
               to="/register"
               className={({ isActive }) =>
-                isActive ? "underline font-semibold" : "hover:underline"
+                isActive ? "underline" : "hover:underline"
               }
             >
               Register
             </NavLink>
           </>
+        ) : (
+          <div className="relative">
+            {/* Avatar */}
+            <img
+              src={
+                user.photoURL ||
+                "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+              }
+              alt="User Avatar"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="w-9 h-9 rounded-full cursor-pointer border-2 border-white"
+            />
+
+            {/* Dropdown */}
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-36 text-center">
+                <p className="px-2 py-1 border-b text-sm font-semibold truncate">
+                  {user.displayName || user.email}
+                </p>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full px-3 py-2 hover:bg-green-100 text-red-600"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         )}
       </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        className="md:hidden text-white"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        ☰
+      </button>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-green-800 text-white flex flex-col space-y-3 py-4 px-6 md:hidden z-10">
+          {navLinks.map(
+            (link) =>
+              (!link.private || user) && (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  className={({ isActive }) =>
+                    isActive ? "underline font-semibold" : "hover:underline"
+                  }
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
+              )
+          )}
+
+          {!user ? (
+            <>
+              <NavLink to="/login" onClick={() => setMenuOpen(false)}>
+                Login
+              </NavLink>
+              <NavLink to="/register" onClick={() => setMenuOpen(false)}>
+                Register
+              </NavLink>
+            </>
+          ) : (
+            <button
+              onClick={() => {
+                handleLogout();
+                setMenuOpen(false);
+              }}
+              className="text-red-400 text-left"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      )}
     </nav>
   );
 };
