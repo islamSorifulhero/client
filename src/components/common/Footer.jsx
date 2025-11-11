@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-green-800 text-white mt-12">
       <div className="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
-        {/* Logo & Description */}
+
         <div className="text-center md:text-left">
           <Link to="/">
             <h2 className="text-3xl font-extrabold mb-3 text-white tracking-wide hover:text-green-300 transition">
@@ -19,7 +19,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Useful Links */}
         <div className="text-center md:text-left">
           <h3 className="text-xl font-semibold mb-3 text-green-200">
             Useful Links
@@ -51,7 +50,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact / About */}
         <div className="text-center md:text-left">
           <h3 className="text-xl font-semibold mb-3 text-green-200">
             Contact Us
@@ -64,7 +62,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Copyright */}
       <div className="border-t border-green-600 py-4 text-center text-gray-300 text-sm">
         © {new Date().getFullYear()}{" "}
         <span className="font-semibold text-green-200">CleanCity</span> — All

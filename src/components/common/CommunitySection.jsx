@@ -9,7 +9,6 @@ const CommunitySection = () => {
   });
 
   useEffect(() => {
-    // backend থেকে ডেটা আনো
     axios.get("http://localhost:5000/api/stats")
       .then((res) => {
         setStats({
@@ -44,7 +43,7 @@ const CommunitySection = () => {
         </div>
 
         <button className="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition duration-300">
-          Join Clean Drive 🌿
+          Join Clean Drive 
         </button>
       </div>
     </section>

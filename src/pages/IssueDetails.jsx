@@ -17,14 +17,12 @@ const IssueDetails = () => {
     additionalInfo: ""
   });
 
-  // Fetch issue details
   useEffect(() => {
     axios.get(`http://localhost:5000/api/issues/${id}`)
       .then(res => setIssue(res.data))
       .catch(err => console.error(err));
   }, [id]);
 
-  // Fetch contributions
   useEffect(() => {
     axios.get(`http://localhost:5000/api/contributions/${id}`)
       .then(res => setContributions(res.data))
@@ -66,7 +64,6 @@ const IssueDetails = () => {
         Pay Clean-Up Contribution
       </button>
 
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-96 relative">
@@ -90,7 +87,6 @@ const IssueDetails = () => {
         </div>
       )}
 
-      {/* Contributors Table */}
       <h2 className="text-2xl font-bold mt-6 mb-2">Contributors</h2>
       {contributions.length === 0 ? (
         <p>No contributions yet.</p>

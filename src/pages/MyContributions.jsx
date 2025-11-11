@@ -43,17 +43,17 @@ const MyContributions = () => {
               className="p-4 bg-white border rounded-lg shadow hover:shadow-lg transition"
             >
               <p className="font-semibold text-green-700 mb-1">
-                💧 Issue ID: <span className="text-gray-700">{item.issueId}</span>
+                Issue ID: <span className="text-gray-700">{item.issueId}</span>
               </p>
               <p className="mb-1">
-                💰 <strong>Amount:</strong> ৳{item.amount}
+                <strong>Amount:</strong> ৳{item.amount}
               </p>
               <p className="mb-1">
-                📅 <strong>Date:</strong>{" "}
+                <strong>Date:</strong>{" "}
                 {new Date(item.date).toLocaleDateString("en-GB")}
               </p>
               <p className="text-sm text-gray-600">
-                📝 {item.additionalInfo || "No additional note"}
+                {item.additionalInfo || "No additional note"}
               </p>
             </div>
           ))}
