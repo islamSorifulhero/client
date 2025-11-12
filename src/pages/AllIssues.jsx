@@ -17,7 +17,7 @@ const AllIssues = () => {
       <div className="grid md:grid-cols-3 gap-6">
         {issues.map(issue => (
           <div key={issue._id} className="bg-white rounded shadow p-4 flex flex-col">
-            <img src={issue.image} alt={issue.title} className="h-40 w-full object-cover rounded mb-2" />
+            <img src={issue.image || issue.photoURL} alt={issue.title} className="h-40 w-full object-cover rounded mb-2" />
             <h2 className="text-lg font-semibold">{issue.title}</h2>
             <p className="text-sm text-gray-500">{issue.category} | {issue.location}</p>
             <p className="mt-1 font-bold">৳{issue.amount}</p>
