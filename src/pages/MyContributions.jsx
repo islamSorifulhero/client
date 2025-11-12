@@ -8,9 +8,12 @@ const MyContributions = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://clean-server-side.vercel.app/api/my-contributions/${user.email}`)
+      fetch(
+        `https://clean-server-side.vercel.app/api/my-contributions/${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
+          console.log("Fetched contributions:", data);
           setContributions(data);
           setLoading(false);
         })
@@ -36,27 +39,31 @@ const MyContributions = () => {
           No contributions found for your account.
         </p>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4">
-          {contributions.map((item) => (
-            <div
-              key={item._id}
-              className="p-4 bg-white border rounded-lg shadow hover:shadow-lg transition"
-            >
-              <p className="font-semibold text-green-700 mb-1">
-                Issue ID: <span className="text-gray-700">{item.issueId}</span>
-              </p>
-              <p className="mb-1">
-                <strong>Amount:</strong> ৳{item.amount}
-              </p>
-              <p className="mb-1">
-                <strong>Date:</strong>{" "}
-                {new Date(item.date).toLocaleDateString("en-GB")}
-              </p>
-              <p className="text-sm text-gray-600">
-                {item.additionalInfo || "No additional note"}
-              </p>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border rounded-lg">
+            <thead>
+              <tr className="bg-green-700 text-white">
+                <th className="py-2 px-4 text-left">Issue Title</th>
+                <th className="py-2 px-4 text-left">Category</th>
+                <th className="py-2 px-4 text-left">Paid Amount</th>
+                <th className="py-2 px-4 text-left">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contributions.map((item) => (
+                <tr key={item._id} className="border-b hover:bg-gray-100">
+                  <td className="py-2 px-4">
+                    {item.issueTitle || "Unknown Issue"}
+                  </td>
+                  <td className="py-2 px-4">{item.category || "N/A"}</td>
+                  <td className="py-2 px-4">৳{item.amount}</td>
+                  <td className="py-2 px-4">
+                    {new Date(item.date).toLocaleDateString("en-GB")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

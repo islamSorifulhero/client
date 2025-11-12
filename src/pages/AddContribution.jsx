@@ -1,4 +1,4 @@
-import React, { useContext, useState, } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/content/AuthProviders.jsx";
 
@@ -7,6 +7,7 @@ const AddContribution = () => {
   const { issueId } = useParams();
   const navigate = useNavigate();
 
+  const [issue, setIssue] = useState(null);
   const [formData, setFormData] = useState({
     issueId: issueId || "",
     amount: "",
@@ -15,23 +16,45 @@ const AddContribution = () => {
     phone: "",
     address: "",
     additionalInfo: "",
-    date: new Date().toISOString(),
   });
 
-  const handleChange = e => {
+  useEffect(() => {
+    if (issueId) {
+      fetch(`https://clean-server-side.vercel.app/api/issues/${issueId}`)
+        .then((res) => res.json())
+        .then((data) => setIssue(data))
+        .catch((err) => console.error("Error fetching issue:", err));
+    }
+  }, [issueId]);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.amount || formData.amount <= 0) {
+      alert("⚠️ Please enter a valid amount.");
+      return;
+    }
+
+    const contributionData = {
+      ...formData,
+      issueId: issueId,
+      date: new Date().toISOString(),
+    };
+
     try {
-      const res = await fetch("https://clean-server-side.vercel.app/api/contributions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://clean-server-side.vercel.app/api/contributions",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(contributionData),
+        }
+      );
 
       if (res.ok) {
         alert("✅ Contribution added successfully!");
@@ -51,6 +74,21 @@ const AddContribution = () => {
         Add Contribution
       </h2>
 
+      {issue ? (
+        <div className="mb-4 text-center text-gray-700">
+          <p>
+            <strong>Issue:</strong> {issue.title}
+          </p>
+          <p>
+            <strong>Category:</strong> {issue.category}
+          </p>
+        </div>
+      ) : (
+        <p className="text-center text-gray-500 mb-4">
+          {issueId ? "Loading issue details..." : "No issue selected"}
+        </p>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="amount"
@@ -61,6 +99,7 @@ const AddContribution = () => {
           className="w-full p-2 border rounded"
           required
         />
+
         <input
           name="name"
           type="text"
@@ -70,6 +109,7 @@ const AddContribution = () => {
           className="w-full p-2 border rounded"
           required
         />
+
         <input
           name="email"
           type="email"
@@ -77,6 +117,7 @@ const AddContribution = () => {
           readOnly
           className="w-full p-2 border rounded bg-gray-100 text-gray-600"
         />
+
         <input
           name="phone"
           type="text"
@@ -85,6 +126,7 @@ const AddContribution = () => {
           placeholder="Phone Number"
           className="w-full p-2 border rounded"
         />
+
         <input
           name="address"
           type="text"
@@ -93,6 +135,7 @@ const AddContribution = () => {
           placeholder="Address"
           className="w-full p-2 border rounded"
         />
+
         <textarea
           name="additionalInfo"
           value={formData.additionalInfo}
