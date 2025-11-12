@@ -18,13 +18,13 @@ const IssueDetails = () => {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/issues/${id}`)
+    axios.get(`https://clean-server-side.vercel.app/api/issues/${id}`)
       .then(res => setIssue(res.data))
       .catch(err => console.error(err));
   }, [id]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/contributions/${id}`)
+    axios.get(`https://clean-server-side.vercel.app/api/contributions/${id}`)
       .then(res => setContributions(res.data))
       .catch(err => console.error(err));
   }, [id]);
@@ -36,7 +36,7 @@ const IssueDetails = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/contributions", formData)
+    axios.post("https://clean-server-side.vercel.app/api/contributions", formData)
       .then(res => {
         alert("✅ Contribution added successfully!");
         setShowModal(false);
@@ -77,6 +77,15 @@ const IssueDetails = () => {
             <form onSubmit={handleSubmit} className="space-y-3">
               <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required className="w-full p-2 border rounded" />
               <input type="email" name="email" placeholder="Your Email" onChange={handleChange} required className="w-full p-2 border rounded" />
+
+              <input
+                name="photoUrl"
+                type="text"
+                value={formData.photoUrl}
+                onChange={handleChange}
+                placeholder="Photo-URL"
+                className="w-full p-2 border rounded"
+              />
               <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} className="w-full p-2 border rounded" />
               <input type="text" name="address" placeholder="Address" onChange={handleChange} className="w-full p-2 border rounded" />
               <input type="number" name="amount" placeholder="Amount" onChange={handleChange} required className="w-full p-2 border rounded" />

@@ -27,7 +27,7 @@ const AddContribution = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/contributions", {
+      const res = await fetch("https://clean-server-side.vercel.app/api/contributions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

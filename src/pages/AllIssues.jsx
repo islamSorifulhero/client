@@ -6,7 +6,7 @@ const AllIssues = () => {
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/issues")
+    axios.get("https://clean-server-side.vercel.app/api/issues")
       .then(res => setIssues(res.data))
       .catch(err => console.error(err));
   }, []);

@@ -30,7 +30,7 @@ const AddIssue = () => {
     setSuccessMsg("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/issues", {
+      const res = await fetch("https://clean-server-side.vercel.app/api/issues", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -76,6 +76,8 @@ const AddIssue = () => {
         <input name="category" value={formData.category} onChange={handleChange} placeholder="Category (e.g. Garbage, Road, Drainage)" className="w-full p-2 border rounded" required />
 
         <input name="location" value={formData.location} onChange={handleChange} placeholder="Location (e.g. Mohakhali, Dhaka)" className="w-full p-2 border rounded" required />
+
+        <input name="photo" value={formData.photo} onChange={handleChange} placeholder="Photo-URL" className="w-full p-2 border rounded" required />
 
         <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Describe the issue" className="w-full p-2 border rounded" rows="3" required />
 

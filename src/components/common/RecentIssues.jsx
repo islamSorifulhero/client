@@ -7,7 +7,7 @@ const RecentIssues = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/issues?limit=6")
+      .get("https://clean-server-side.vercel.app/api/issues?limit=6")
       .then((res) => setIssues(res.data))
       .catch((err) => console.error(err));
   }, []);

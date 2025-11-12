@@ -9,7 +9,7 @@ const CommunitySection = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/stats")
+    axios.get("https://clean-server-side.vercel.app/api/stats")
       .then((res) => {
         setStats({
           users: res.data.totalUsers,

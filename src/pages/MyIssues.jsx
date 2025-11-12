@@ -11,7 +11,7 @@ const MyIssues = () => {
     setEmail(userEmail);
 
     axios
-      .get(`http://localhost:5000/api/issues?email=${userEmail}`)
+      .get(`https://clean-server-side.vercel.app/api/issues?email=${userEmail}`)
       .then(res => setIssues(res.data))
       .catch(err => console.error(err));
   }, []);
