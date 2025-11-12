@@ -1,16 +1,24 @@
-# React + Vite
+## Community Cleanliness &amp; Issue Reporting Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+### 🖥️ Live Site URL  https://animated-cat-0a19c2.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🗑️ **Report Issues:** Users can report cleanliness-related problems (like garbage piles, broken roads, etc.) in their community.  
+- 📸 **Add Images:** Each issue can include a picture to make it easier to identify the location visually.  
+- 👥 **Community Contributions:** Other users can view issues and contribute to solving them.  
+- 📊 **Dynamic Stats Dashboard:** Shows total users, resolved issues, and pending problems dynamically from MongoDB.  
+- 🔐 **User Authentication:** Firebase authentication (Register, Login, Logout) implemented for secure access.  
+- 🧭 **Responsive Design:** Fully mobile-friendly interface built with React and Tailwind CSS.  
+- 🌎 **MERN Stack:** MongoDB + Express.js + React + Node.js full-stack web application.  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ⚙️ Technologies Used
+
+- **Frontend:** React.js, React Router, Axios, Tailwind CSS  
+- **Backend:** Node.js, Express.js, MongoDB  
+- **Authentication:** Firebase Authentication  
+- **Hosting:** Frontend - Netlify, Backend - Vercel
