@@ -23,7 +23,7 @@ const CommunitySection = () => {
   return (
     <section className="bg-green-50 py-16">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold text-green-700 mb-12">Community Impact</h2>
+        <h2 className="text-4xl font-bold text-green-700 mb-12">Community Stats</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
           <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
