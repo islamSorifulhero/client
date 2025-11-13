@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../components/content/AuthProviders";
+import { FaFileDownload } from "react-icons/fa";
 
 const MyContributions = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
@@ -8,7 +9,7 @@ const MyContributions = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://clean-server-side.vercel.app/api/my-contributions/?email=${user.email}`)
+      fetch(`https://clean-server-side.vercel.app/api/my-contributions/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setContributions(data);
@@ -31,32 +32,38 @@ const MyContributions = () => {
   };
 
   if (loading || authLoading) {
-    return <p className="text-center mt-6">Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-lg text-gray-600 animate-pulse">Loading your contributions...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-green-700 mb-4 text-center">
+    <div className="p-6 max-w-5xl mx-auto">
+      <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
         My Contributions
       </h2>
 
       {contributions.length === 0 ? (
-        <p className="text-center text-gray-500">
-          No contributions found for your account.
-        </p>
+        <div className="text-center text-gray-500 mt-10">
+          <p>No contributions found for your account.</p>
+          <p className="text-sm mt-1">Make your first cleanup donation to see it here.</p>
+        </div>
       ) : (
         <>
-          <div className="flex justify-end mb-3">
+          <div className="flex justify-end mb-4">
             <button
               onClick={handleDownloadPDF}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition duration-300"
             >
-              📄 Download PDF
+              <FaFileDownload />
+              <span>Download Report (PDF)</span>
             </button>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border rounded-lg">
+          <div className="overflow-x-auto shadow-lg rounded-lg">
+            <table className="min-w-full bg-white dark:bg-gray-800 border rounded-lg">
               <thead>
                 <tr className="bg-green-700 text-white">
                   <th className="py-2 px-4 text-left">Issue Title</th>
@@ -67,11 +74,20 @@ const MyContributions = () => {
               </thead>
               <tbody>
                 {contributions.map((item) => (
-                  <tr key={item._id} className="border-b hover:bg-gray-100">
-                    <td className="py-2 px-4">{item.issueTitle || "Unknown Issue"}</td>
-                    <td className="py-2 px-4">{item.category || "N/A"}</td>
-                    <td className="py-2 px-4">৳{item.amount}</td>
-                    <td className="py-2 px-4">
+                  <tr
+                    key={item._id}
+                    className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >
+                    <td className="py-2 px-4 font-medium text-gray-800 dark:text-gray-200">
+                      {item.issueTitle || "Unknown Issue"}
+                    </td>
+                    <td className="py-2 px-4 text-gray-600 dark:text-gray-300">
+                      {item.category || "N/A"}
+                    </td>
+                    <td className="py-2 px-4 font-semibold text-green-700 dark:text-green-400">
+                      ৳{item.amount}
+                    </td>
+                    <td className="py-2 px-4 text-gray-600 dark:text-gray-300">
                       {new Date(item.date).toLocaleDateString("en-GB")}
                     </td>
                   </tr>
