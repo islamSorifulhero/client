@@ -19,7 +19,7 @@ const RecentIssues = () => {
         {issues.map((issue) => (
           <div key={issue._id} className="bg-white rounded shadow p-4 flex flex-col">
             <img
-              src={issue.image || "/assets/default.jpg"}
+              src={issue.image || issue.photoURL}
               alt={issue.title}
               className="h-40 w-full object-cover rounded mb-2"
             />

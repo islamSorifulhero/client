@@ -50,7 +50,7 @@ const IssueDetails = () => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-green-700 mb-4">{issue.title}</h1>
-      <img src={issue.image} alt={issue.title} className="w-full h-60 object-cover rounded mb-4" />
+      <img src={issue.image || issue.photoURL} alt={issue.title} className="w-full h-60 object-cover rounded mb-4" />
       <p><strong>Category:</strong> {issue.category}</p>
       <p><strong>Location:</strong> {issue.location}</p>
       <p><strong>Description:</strong> {issue.description}</p>
