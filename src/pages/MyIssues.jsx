@@ -1,38 +1,198 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../components/content/AuthProviders";
 
 const MyIssues = () => {
+  const { user } = useContext(AuthContext);
   const [issues, setIssues] = useState([]);
-  const [email, setEmail] = useState("");
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
+    if (user?.email) {
+      axios
+        .get(`https://clean-server-side.vercel.app/api/issues?email=${user.email}`)
+        .then((res) => setIssues(res.data))
+        .catch((err) => console.error(err));
+    }
+  }, [user]);
 
-    const userEmail = "user@mail.com";
-    setEmail(userEmail);
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`https://clean-server-side.vercel.app/api/issues/${selectedIssue._id}`, selectedIssue);
+      setIssues((prev) =>
+        prev.map((item) => (item._id === selectedIssue._id ? selectedIssue : item))
+      );
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating issue:", error);
+    }
+  };
 
-    axios
-      .get(`https://clean-server-side.vercel.app/api/issues?email=${userEmail}`)
-      .then(res => setIssues(res.data))
-      .catch(err => console.error(err));
-  }, []);
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`https://clean-server-side.vercel.app/api/issues/${selectedIssue._id}`);
+      setIssues((prev) => prev.filter((item) => item._id !== selectedIssue._id));
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      console.error("Error deleting issue:", error);
+    }
+  };
 
-  
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-green-700 mb-4">My Reported Issues</h1>
+      <h1 className="text-3xl font-bold text-green-700 mb-6">My Reported Issues</h1>
+
       {issues.length === 0 ? (
-        <p>No issues reported yet.</p>
+        <p className="text-gray-500">No issues reported yet.</p>
       ) : (
-        <div className="grid md:grid-cols-3 gap-6">
-          {issues.map(issue => (
-            <div key={issue._id} className="bg-white rounded shadow p-4">
-              <img src={issue.image} alt={issue.title} className="h-40 w-full object-cover rounded mb-2" />
-              <h2 className="text-lg font-semibold">{issue.title}</h2>
-              <p className="text-sm text-gray-500">{issue.category} | {issue.location}</p>
-              <p className="mt-1 font-bold">৳{issue.amount}</p>
-              <p className="text-xs text-gray-500 mt-1">Date: {new Date(issue.date).toLocaleDateString()}</p>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border rounded-lg">
+            <thead className="bg-green-600 text-white">
+              <tr>
+                <th className="p-2">Image</th>
+                <th className="p-2">Title</th>
+                <th className="p-2">Category</th>
+                <th className="p-2">Amount</th>
+                <th className="p-2">Status</th>
+                <th className="p-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {issues.map((issue) => (
+                <tr key={issue._id} className="border-t hover:bg-gray-50">
+                  <td className="p-2">
+                    <img
+                      src={issue.image}
+                      alt={issue.title}
+                      className="h-16 w-20 object-cover rounded"
+                    />
+                  </td>
+                  <td className="p-2 font-semibold">{issue.title}</td>
+                  <td className="p-2">{issue.category}</td>
+                  <td className="p-2 text-green-700 font-semibold">৳{issue.amount}</td>
+                  <td className="p-2">{issue.status || "Ongoing"}</td>
+                  <td className="p-2 flex gap-2">
+                    <button
+                      onClick={() => {
+                        setSelectedIssue(issue);
+                        setIsEditModalOpen(true);
+                      }}
+                      className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedIssue(issue);
+                        setIsDeleteModalOpen(true);
+                      }}
+                      className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {isEditModalOpen && selectedIssue && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4 text-green-700">Update Issue</h2>
+            <form onSubmit={handleUpdate} className="space-y-3">
+              <input
+                type="text"
+                value={selectedIssue.title}
+                onChange={(e) => setSelectedIssue({ ...selectedIssue, title: e.target.value })}
+                className="w-full border p-2 rounded"
+                placeholder="Title"
+              />
+              <input
+                type="text"
+                value={selectedIssue.category}
+                onChange={(e) => setSelectedIssue({ ...selectedIssue, category: e.target.value })}
+                className="w-full border p-2 rounded"
+                placeholder="Category"
+              />
+              <input
+                type="number"
+                value={selectedIssue.amount}
+                onChange={(e) => setSelectedIssue({ ...selectedIssue, amount: e.target.value })}
+                className="w-full border p-2 rounded"
+                placeholder="Amount"
+              />
+              <textarea
+                value={selectedIssue.description}
+                onChange={(e) =>
+                  setSelectedIssue({ ...selectedIssue, description: e.target.value })
+                }
+                className="w-full border p-2 rounded"
+                placeholder="Description"
+              />
+              <div>
+                <label className="font-medium">Status: </label>
+                <select
+                  value={selectedIssue.status || "Ongoing"}
+                  onChange={(e) =>
+                    setSelectedIssue({ ...selectedIssue, status: e.target.value })
+                  }
+                  className="ml-2 border p-2 rounded"
+                >
+                  <option value="Ongoing">Ongoing</option>
+                  <option value="Ended">Ended</option>
+                </select>
+              </div>
+
+              <div className="flex justify-end gap-2 mt-4">
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="px-4 py-2 bg-gray-400 text-white rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {isDeleteModalOpen && selectedIssue && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-sm text-center">
+            <h2 className="text-lg font-semibold mb-4 text-red-600">
+              Are you sure you want to delete this issue?
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              "{selectedIssue.title}"
+            </p>
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="px-4 py-2 bg-gray-400 text-white rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
             </div>
-          ))}
+          </div>
         </div>
       )}
     </div>
