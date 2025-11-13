@@ -18,10 +18,8 @@ const AuthProviders = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const value = { user, loading };
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -8,7 +8,7 @@ const MyContributions = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://clean-server-side.vercel.app/api/my-contributions/${user.email}`)
+      fetch(`https://clean-server-side.vercel.app/api/my-contributions/?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setContributions(data);
