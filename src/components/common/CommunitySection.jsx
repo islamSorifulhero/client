@@ -15,13 +15,26 @@ const CommunitySection = () => {
     axios
       .get("https://clean-server-side.vercel.app/api/community-stats")
       .then((res) => {
+        console.log("✅ Community Stats Response:", res.data);
+
         setStats({
-          users: res.data.totalUsers,
-          resolved: res.data.issuesResolved,
-          pending: res.data.issuesPending,
+          users:
+            res.data.totalUsers ||
+            res.data.users ||
+            0,
+          resolved:
+            res.data.issuesResolved ||
+            res.data.resolvedIssues ||
+            res.data.resolved ||
+            0,
+          pending:
+            res.data.issuesPending ||
+            res.data.pendingIssues ||
+            res.data.pending ||
+            0,
         });
       })
-      .catch((err) => console.error("Error fetching stats:", err));
+      .catch((err) => console.error("❌ Error fetching stats:", err));
   }, []);
 
   return (
@@ -33,36 +46,33 @@ const CommunitySection = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16">
           <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
-            <span className="text-5xl font-bold text-green-600">{stats.users}</span>
+            <span className="text-5xl font-bold text-green-600">
+              {stats.users}
+            </span>
             <p className="mt-2 text-gray-600 font-semibold">Registered Users</p>
           </div>
 
           <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
-            <span className="text-5xl font-bold text-green-600">{stats.resolved}</span>
+            <span className="text-5xl font-bold text-green-600">
+              {stats.resolved}
+            </span>
             <p className="mt-2 text-gray-600 font-semibold">Issues Resolved</p>
           </div>
 
           <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center hover:scale-105 transition-transform duration-300">
-            <span className="text-5xl font-bold text-green-600">{stats.pending}</span>
+            <span className="text-5xl font-bold text-green-600">
+              {stats.pending}
+            </span>
             <p className="mt-2 text-gray-600 font-semibold">Pending Issues</p>
           </div>
         </div>
 
-        <div className="bg-green-600 text-white py-10 px-6 rounded-xl shadow-lg max-w-3xl mx-auto">
-          <h3 className="text-3xl font-bold mb-4">
-            Join Our Clean Drive Initiative
-          </h3>
-          <p className="text-lg mb-6">
-            Be a part of the community making our city greener and cleaner. 
-            Join as a volunteer and take part in local cleanliness campaigns.
-          </p>
-          <button
-            onClick={() => navigate("/volunteer-register")}
-            className="bg-white text-green-700 font-semibold px-6 py-3 rounded-lg hover:bg-green-100 transition"
-          >
-            Become a Volunteer
-          </button>
-        </div>
+        <button
+          onClick={() => navigate("/volunteer-register")}
+          className="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition duration-300"
+        >
+          Join Clean Drive
+        </button>
       </div>
     </section>
   );
