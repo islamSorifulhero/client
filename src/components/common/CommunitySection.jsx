@@ -9,7 +9,7 @@ const CommunitySection = () => {
   });
 
   useEffect(() => {
-    axios.get("https://clean-server-side.vercel.app/api/stats")
+    axios.get("https://clean-server-side.vercel.app/api/community-stats")
       .then((res) => {
         setStats({
           users: res.data.totalUsers,
@@ -43,7 +43,7 @@ const CommunitySection = () => {
         </div>
 
         <button className="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition duration-300">
-          Join Clean Drive 
+          Join Clean Drive
         </button>
       </div>
     </section>
