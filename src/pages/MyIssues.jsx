@@ -65,7 +65,7 @@ const MyIssues = () => {
                 <tr key={issue._id} className="border-t hover:bg-gray-50">
                   <td className="p-2">
                     <img
-                      src={issue.image}
+                      src={issue.image || issue.photoURL}
                       alt={issue.title}
                       className="h-16 w-20 object-cover rounded"
                     />
