@@ -27,7 +27,7 @@ const Navbar = ({ toggleTheme, darkMode }) => {
   ];
 
   return (
-    <nav className="bg-green-800 text-white px-6 py-6 flex justify-between items-center relative">
+    <nav className="bg-green-800 text-white px-6 py-6 flex justify-between items-center sticky top-0 z-50">
       <h1 onClick={() => navigate("/")} className="text-2xl font-bold cursor-pointer italic">Clean<span className="text-green-400">City</span></h1>
 
       <div className="hidden md:flex space-x-5 items-center">
