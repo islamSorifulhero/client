@@ -38,10 +38,10 @@ const CommunitySection = () => {
   }, []);
 
   return (
-    <section className="bg-green-50 py-16">
+    <section className="bg-green-50 py-16 mt-4">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold text-green-700 mb-12">
-          🌍 Community Impact & Stats
+          🌍 Community Impact
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16">

@@ -5,7 +5,7 @@ const JoinCleanDrive = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mt-12 bg-green-600 text-white py-10 px-6 rounded-xl text-center shadow-lg">
+    <div className="mt-4 bg-green-600 text-white py-10 px-6 text-center shadow-lg">
       <h2 className="text-3xl font-bold mb-4">Join Our Clean Drive Initiative 🌍</h2>
       <p className="text-lg mb-6 max-w-2xl mx-auto">
         Be a part of the community making our city greener and cleaner. 

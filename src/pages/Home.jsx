@@ -7,6 +7,10 @@ import CommunitySection from "../components/common/CommunitySection";
 import JoinCleanDrive from "../components/common/JoinCleanDrive";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
+import Stats from "../components/common/Stats";
+import Newsletter from "./Newsletter";
+import FAQ from "./FAQ";
+import Testimonials from "./Testimonials";
 
 
 const Home = () => {
@@ -41,9 +45,13 @@ const Home = () => {
 
   return (
     <div>
-      <div className="text-center -mt-4 mb-2 py-8 bg-linear-to-r from-cyan-600 to-emerald-500 dark:bg-gray-800 transition-colors duration-300">
+      <Banner />
+      <Categories />
+      <RecentIssues />
+
+      <div className="text-center mt-4 py-8 bg-linear-to-r from-cyan-600 to-emerald-500 dark:bg-gray-800 transition-colors duration-300">
         <h1 className="text-4xl font-bold italic text-white dark:text-green-300 mb-6">
-          Welcome to CleanCity
+          Clean Our Streets
         </h1>
 
         <h2 className="text-2xl font-semibold text-white dark:text-gray-200">
@@ -67,11 +75,13 @@ const Home = () => {
           Together we can make our city clean and green for everyone!
         </p>
       </div>
-      <Banner />
-      <Categories />
-      <RecentIssues />
+
       <CommunitySection />
       <JoinCleanDrive />
+      <Stats></Stats>
+      <Testimonials></Testimonials>
+      <FAQ></FAQ>
+      <Newsletter></Newsletter>
     </div>
   );
 };
