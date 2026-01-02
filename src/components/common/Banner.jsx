@@ -6,9 +6,6 @@ import banner33 from "../../assets/banner3.jpg";
 const Banner = () => {
   return (
     <div className="relative w-full">
-      <h1 className="text-xl text-center mb-1 sm:text-2xl md:text-3xl font-bold text-green-700 drop-shadow-lg">
-        Welcome to CleanCity
-      </h1>
       <div className="absolute top-10 left-1/2 -translate-x-1/2 text-center z-20">
       </div>
 
