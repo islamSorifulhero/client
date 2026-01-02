@@ -31,7 +31,7 @@ const AllIssues = () => {
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
           className="w-16 h-16 border-4 border-green-200 border-t-green-700 rounded-full"
         />
-        <p className="text-green-700 font-semibold animate-pulse">Loading Issues...</p>
+        <p className="text-green-700 font-semibold animate-pulse">Loading...</p>
       </div>
     );
   }

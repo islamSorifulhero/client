@@ -5,12 +5,11 @@ import Categories from "../components/common/Categories";
 import RecentIssues from "../components/common/RecentIssues";
 import CommunitySection from "../components/common/CommunitySection";
 import JoinCleanDrive from "../components/common/JoinCleanDrive";
-import { motion, AnimatePresence } from "framer-motion"; // ১. Framer Motion ইমপোর্ট
+import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 
 
 const Home = () => {
-  // const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,18 +18,6 @@ const Home = () => {
       .then(res => {
         setIssues(res.data);
         setLoading(false);
-        // ডাটা সফলভাবে আসলে একটি টোস্ট দেখাতে পারেন (ঐচ্ছিক)
-        // const Toast = Swal.mixin({
-        //   toast: true,
-        //   position: "top-end",
-        //   showConfirmButton: false,
-        //   timer: 2000,
-        //   timerProgressBar: true,
-        // });
-        // Toast.fire({
-        //   icon: "success",
-        //   title: "Issues loaded successfully"
-        // });
       })
       .catch(err => {
         console.error(err);
@@ -47,7 +34,7 @@ const Home = () => {
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
           className="w-16 h-16 border-4 border-green-200 border-t-green-700 rounded-full"
         />
-        <p className="text-green-700 font-semibold animate-pulse">Loading Issues...</p>
+        <p className="text-green-700 font-semibold animate-pulse">Loading...</p>
       </div>
     );
   }
