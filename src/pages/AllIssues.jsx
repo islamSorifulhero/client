@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 
-
 const AllIssues = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,7 +70,6 @@ const AllIssues = () => {
                 See Details
               </Link>
             </motion.div>
-
 
           ))}
         </AnimatePresence>
