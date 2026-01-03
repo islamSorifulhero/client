@@ -10,7 +10,7 @@ const Stats = () => {
     ];
 
     return (
-        <section className="py-16 mt-4 bg-green-700 dark:bg-slate-900 transition-colors">
+        <section className="py-16 mt-4 dark:bg-slate-900 transition-colors  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
             <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
                 {statData.map((item, index) => (
                     <motion.div

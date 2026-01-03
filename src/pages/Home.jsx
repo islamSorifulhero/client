@@ -80,8 +80,8 @@ const Home = () => {
 
       <CommunitySection />
       <JoinCleanDrive />
-      <Stats></Stats>
       <Testimonials></Testimonials>
+      <Stats></Stats>
       <FAQ></FAQ>
       <Newsletter></Newsletter>
     </div>
