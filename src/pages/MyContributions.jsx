@@ -74,8 +74,8 @@ const MyContributions = () => {
             <table className="min-w-full bg-white dark:bg-gray-800 border rounded-lg">
               <thead>
                 <tr className="bg-green-700 text-white">
-                  <th className="py-2 px-4 text-left">Issue Title</th>
-                  <th className="py-2 px-4 text-left">Category</th>
+                  <th className="py-2 px-4 text-left">Name</th>
+                  <th className="py-2 px-4 text-left">Phone</th>
                   <th className="py-2 px-4 text-left">Paid Amount</th>
                   <th className="py-2 px-4 text-left">Date</th>
                 </tr>
@@ -87,10 +87,10 @@ const MyContributions = () => {
                     className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                   >
                     <td className="py-2 px-4 font-medium text-gray-800 dark:text-gray-200">
-                      {item.issueTitle || "Unknown Issue"}
+                      {item.name}
                     </td>
                     <td className="py-2 px-4 text-gray-600 dark:text-gray-300">
-                      {item.category || "N/A"}
+                      {item.phone}
                     </td>
                     <td className="py-2 px-4 font-semibold text-green-700 dark:text-green-400">
                       ৳{item.amount}

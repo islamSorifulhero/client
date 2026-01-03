@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: "/my-issues", element: <PrivateRoute><MyIssues /></PrivateRoute> },
       { path: "/my-contributions", element: <PrivateRoute><MyContributions /></PrivateRoute> },
       { path: "/issue/:id", element: <IssueDetails /> },
-      { path: "/add-contribution/:issueId", element: <PrivateRoute><AddContribution /></PrivateRoute> },
+      { path: "/add-contribution", element: <PrivateRoute><AddContribution /></PrivateRoute> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],

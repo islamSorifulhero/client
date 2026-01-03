@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/content/AuthProviders.jsx";
+import { toast } from "react-toastify";
 
 const AddContribution = () => {
   const { user } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const AddContribution = () => {
     amount: "",
     name: user?.displayName || "",
     email: user?.email || "",
+    category: "",
     phone: "",
     address: "",
     additionalInfo: "",
@@ -22,8 +24,11 @@ const AddContribution = () => {
     if (issueId) {
       fetch(`https://clean-server-side.vercel.app/api/issues/${issueId}`)
         .then((res) => res.json())
-        .then((data) => setIssue(data))
-        .catch((err) => console.error("Error fetching issue:", err));
+        .then((data) => {
+          setIssue(data);
+          setFormData((prev) => ({ ...prev, category: data.category }));
+        })
+        .catch(() => toast.error("Failed to load issue"));
     }
   }, [issueId]);
 
@@ -36,13 +41,13 @@ const AddContribution = () => {
     e.preventDefault();
 
     if (!formData.amount || formData.amount <= 0) {
-      alert("⚠️ Please enter a valid amount.");
+      toast.warn("Please enter a valid amount");
       return;
     }
 
     const contributionData = {
       ...formData,
-      issueId: issueId,
+      issueId,
       date: new Date().toISOString(),
     };
 
@@ -57,14 +62,13 @@ const AddContribution = () => {
       );
 
       if (res.ok) {
-        alert("✅ Contribution added successfully!");
+        toast.success("Contribution added successfully");
         navigate("/my-contributions");
       } else {
-        alert("❌ Failed to add contribution!");
+        toast.error("Failed to add contribution");
       }
     } catch (err) {
-      console.error(err);
-      alert("⚠️ Server Error!");
+      toast.error("Server error!");
     }
   };
 
@@ -76,29 +80,16 @@ const AddContribution = () => {
 
       {issue ? (
         <div className="mb-4 text-center text-gray-700">
-          <p>
-            <strong>Issue:</strong> {issue.title}
-          </p>
-          <p>
-            <strong>Category:</strong> {issue.category}
-          </p>
+          <p><strong>Issue:</strong> {issue.title}</p>
+          <p><strong>Category:</strong> {issue.category}</p>
         </div>
       ) : (
         <p className="text-center text-gray-500 mb-4">
-          {issueId ? "Loading issue details..." : "No issue selected"}
+          Loading issue details...
         </p>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="amount"
-          type="number"
-          value={formData.amount}
-          onChange={handleChange}
-          placeholder="Contribution Amount"
-          className="w-full p-2 border rounded"
-          required
-        />
 
         <input
           name="name"
@@ -115,7 +106,7 @@ const AddContribution = () => {
           type="email"
           value={formData.email}
           readOnly
-          className="w-full p-2 border rounded bg-gray-100 text-gray-600"
+          className="w-full p-2 border rounded bg-gray-100"
         />
 
         <input
@@ -128,6 +119,16 @@ const AddContribution = () => {
         />
 
         <input
+          name="amount"
+          type="text"
+          value={formData.amount}
+          onChange={handleChange}
+          placeholder="Amount"
+          className="w-full p-2 border rounded"
+          required
+        />
+
+        <input
           name="address"
           type="text"
           value={formData.address}
@@ -135,15 +136,6 @@ const AddContribution = () => {
           placeholder="Address"
           className="w-full p-2 border rounded"
         />
-
-        <textarea
-          name="additionalInfo"
-          value={formData.additionalInfo}
-          onChange={handleChange}
-          placeholder="Additional Info (optional)"
-          className="w-full p-2 border rounded"
-          rows="3"
-        ></textarea>
 
         <button
           type="submit"
