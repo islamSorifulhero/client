@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../components/content/AuthProviders";
 import { FaFileDownload } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MyContributions = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
@@ -33,8 +34,15 @@ const MyContributions = () => {
 
   if (loading || authLoading) {
     return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <p className="text-lg text-gray-600 animate-pulse">Loading your contributions...</p>
+      <div className="flex flex-col justify-center items-center min-h-[60vh] space-y-4">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+          className="w-14 h-14 border-4 border-green-200 border-t-green-700 rounded-full"
+        />
+        <p className="text-green-700 font-semibold animate-pulse">
+          Loading your contributions...
+        </p>
       </div>
     );
   }
