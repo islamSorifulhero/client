@@ -1,4 +1,32 @@
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 const Support = () => {
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 800);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center min-h-[60vh] space-y-4">
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    className="w-16 h-16 border-4 border-green-200 border-t-green-700 rounded-full"
+                />
+                <p className="text-green-700 font-semibold animate-pulse">
+                    Loading About Page...
+                </p>
+            </div>
+        );
+    }
     return (
         <div className="max-w-5xl mx-auto p-6">
             <h1 className="text-4xl font-bold text-green-700 mb-6 text-center">
