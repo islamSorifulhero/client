@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 const IssueDetails = () => {
   const { id } = useParams();
@@ -34,17 +36,31 @@ const IssueDetails = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("https://clean-server-side.vercel.app/api/contributions", formData)
-      .then(res => {
-        alert("✅ Contribution added successfully!");
-        setShowModal(false);
-        setContributions(prev => [...prev, formData]);
-      })
-      .catch(err => console.error(err));
-  };
 
+    axios
+      .post("https://clean-server-side.vercel.app/api/contributions", formData)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Contribution Added!",
+          text: "Thank you for supporting the clean-up initiative",
+          confirmButtonColor: "#15803d",
+        });
+
+        setShowModal(false);
+        setContributions((prev) => [...prev, formData]);
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Failed to add contribution. Please try again.",
+          confirmButtonColor: "#dc2626",
+        });
+      });
+  }
   if (!issue) return <p className="p-6">Loading...</p>;
 
   return (
