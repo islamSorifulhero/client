@@ -32,7 +32,7 @@ const Register = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name, photoURL: photoURL });
-      toast.success("✅ Registration Successful!");
+      toast.success("Registration Successful!");
       navigate("/login");
     } catch (err) {
       toast.error("❌ " + err.message);
@@ -42,7 +42,7 @@ const Register = () => {
   const handleGoogleRegister = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      toast.success("✅ Google Login Successful!");
+      toast.success("Google Login Successful!");
       navigate("/");
     } catch (err) {
       toast.error("❌ " + err.message);

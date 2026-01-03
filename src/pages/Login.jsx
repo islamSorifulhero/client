@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("✅ Login Successful!");
+      toast.success("Login Successful!");
       navigate("/");
     } catch (err) {
       toast.error("❌ " + err.message);
@@ -28,7 +28,7 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      toast.success("✅ Google Login Successful!");
+      toast.success("Google Login Successful!");
       navigate("/");
     } catch (err) {
       toast.error("❌ " + err.message);
