@@ -15,6 +15,9 @@ import About from "../pages/About.jsx";
 import DashboardLayout from "../Layout/DashboardLayout.jsx";
 import DashboardHome from "../pages/DashboardHome.jsx";
 import Profile from "../pages/Profile.jsx";
+import Blog from "../pages/Blog.jsx";
+import Privacy from "../pages/Privacy.jsx";
+import Support from "../pages/Support.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,9 @@ const router = createBrowserRouter([
       { path: "/all-issues", element: <AllIssues /> },
       { path: "/about", element: <About></About> },
       { path: "/issue/:id", element: <IssueDetails /> },
+      { path: "/blog", element: <Blog></Blog> },
+      { path: "/privacy", element: <Privacy></Privacy> },
+      { path: "/support", element: <Support></Support> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],
