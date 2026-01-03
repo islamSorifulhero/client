@@ -17,7 +17,7 @@ const DashboardLayout = () => {
         <div className="flex min-h-screen bg-gray-100">
             {/* Sidebar */}
             <aside className="w-64 bg-green-700 text-white p-5">
-                <h2 className="text-xl font-bold mb-6">Dashboard</h2>
+                <NavLink to="/"><h2 className="text-2xl font-extrabold mb-3 text-white tracking-wide hover:text-green-300 transition">Dashboard</h2></NavLink>
 
                 <nav className="space-y-3">
                     <NavLink to="/dashboard" className="block hover:bg-green-600 p-2 rounded">
