@@ -31,10 +31,10 @@ const RecentIssues = () => {
                 boxShadow: "0px 10px 25px rgba(0,0,0,0.1)"
               }}
 
-              className="bg-white rounded shadow p-4 flex flex-col">
+              className="bg-white hover:bg-green-100 transition-all duration-300 rounded shadow p-4 flex flex-col">
 
               <img src={issue.image || issue.photoURL} alt={issue.title} className="h-40 w-full object-cover rounded mb-2" />
-              <h2 className="text-lg font-semibold">{issue.title}</h2>
+              <h2 className="text-lg font-semibold group-hover:text-green-700 transition">{issue.title}</h2>
 
               <p className="text-sm text-gray-500">{issue.category} | {issue.location}</p>
 
