@@ -9,7 +9,7 @@ const RecentIssues = () => {
 
   useEffect(() => {
     axios
-      .get("https://clean-server-side.vercel.app/api/issues?limit=6")
+      .get("https://clean-server-side.vercel.app/api/issues?limit=8")
       .then((res) => setIssues(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -18,7 +18,7 @@ const RecentIssues = () => {
     <div className="my-10">
       <h2 className="text-2xl font-bold text-green-700 mb-6 text-center">Recent Complaints</h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <AnimatePresence>
           {issues.map((issue, index) => (
             <motion.div key={issue._id}
