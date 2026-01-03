@@ -11,6 +11,7 @@ import AddContribution from "../pages/AddContribution.jsx";
 import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
+import About from "../pages/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +20,12 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/all-issues", element: <AllIssues /> },
+      { path: "/about", element: <About></About> },
       { path: "/add-issue", element: <PrivateRoute><AddIssue /></PrivateRoute> },
       { path: "/my-issues", element: <PrivateRoute><MyIssues /></PrivateRoute> },
       { path: "/my-contributions", element: <PrivateRoute><MyContributions /></PrivateRoute> },
-      { path: "/issue/:id", element: <PrivateRoute><IssueDetails /></PrivateRoute> },
+      // { path: "/issue/:id", element: <PrivateRoute><IssueDetails /></PrivateRoute> },
+      { path: "/issue/:id", element: <IssueDetails /> },
       { path: "/add-contribution/:issueId", element: <PrivateRoute><AddContribution /></PrivateRoute> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },

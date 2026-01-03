@@ -21,6 +21,7 @@ const Navbar = ({ toggleTheme, darkMode }) => {
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/all-issues", label: "All Issues" },
+    { path: "/about", label: "About" },
     { path: "/add-issue", label: "Add Issue", private: true },
     { path: "/my-issues", label: "My Issues", private: true },
     { path: "/my-contributions", label: "My Contributions", private: true },
