@@ -12,6 +12,9 @@ import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import About from "../pages/About.jsx";
+import DashboardLayout from "../Layout/DashboardLayout.jsx";
+import DashboardHome from "../pages/DashboardHome.jsx";
+import Profile from "../pages/Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,13 +27,23 @@ const router = createBrowserRouter([
       { path: "/add-issue", element: <PrivateRoute><AddIssue /></PrivateRoute> },
       { path: "/my-issues", element: <PrivateRoute><MyIssues /></PrivateRoute> },
       { path: "/my-contributions", element: <PrivateRoute><MyContributions /></PrivateRoute> },
-      // { path: "/issue/:id", element: <PrivateRoute><IssueDetails /></PrivateRoute> },
       { path: "/issue/:id", element: <IssueDetails /> },
       { path: "/add-contribution/:issueId", element: <PrivateRoute><AddContribution /></PrivateRoute> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],
   },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>
+    ),
+    children: [
+      { index: true, element: <DashboardHome></DashboardHome> },
+      { path: "my-issues", element: <PrivateRoute><MyIssues /></PrivateRoute> },
+      { path: "profile", element: <Profile></Profile> },
+    ]
+  }
 ]);
 
 export default router;

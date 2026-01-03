@@ -11,10 +11,12 @@ import Stats from "../components/common/Stats";
 import Newsletter from "./Newsletter";
 import FAQ from "./FAQ";
 import Testimonials from "./Testimonials";
+import Swal from "sweetalert2";
 
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
+  const [issues, setIssues] = useState([]);
 
   useEffect(() => {
     setLoading(true);
