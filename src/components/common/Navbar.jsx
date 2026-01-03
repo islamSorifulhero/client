@@ -22,10 +22,6 @@ const Navbar = ({ toggleTheme, darkMode }) => {
     { path: "/", label: "Home" },
     { path: "/all-issues", label: "All Issues" },
     { path: "/about", label: "About" },
-    { path: "/add-issue", label: "Add Issue", private: true },
-    { path: "/my-issues", label: "My Issues", private: true },
-    { path: "/add-contribution", label: "Add Contribution", private: true },
-    { path: "/my-contributions", label: "My Contributions", private: true },
     { path: "/dashboard", label: "Dashboard", private: true },
   ];
 

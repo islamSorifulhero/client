@@ -24,11 +24,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/all-issues", element: <AllIssues /> },
       { path: "/about", element: <About></About> },
-      { path: "/add-issue", element: <PrivateRoute><AddIssue /></PrivateRoute> },
-      { path: "/my-issues", element: <PrivateRoute><MyIssues /></PrivateRoute> },
-      { path: "/my-contributions", element: <PrivateRoute><MyContributions /></PrivateRoute> },
       { path: "/issue/:id", element: <IssueDetails /> },
-      { path: "/add-contribution", element: <PrivateRoute><AddContribution /></PrivateRoute> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],
@@ -40,7 +36,11 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <DashboardHome></DashboardHome> },
+      { path: "add-issue", element: <PrivateRoute><AddIssue /></PrivateRoute> },
+      { path: "all-issues", element: <AllIssues /> },
       { path: "my-issues", element: <PrivateRoute><MyIssues /></PrivateRoute> },
+      { path: "add-contribution", element: <PrivateRoute><AddContribution /></PrivateRoute> },
+      { path: "my-contributions", element: <PrivateRoute><MyContributions /></PrivateRoute> },
       { path: "profile", element: <Profile></Profile> },
     ]
   }

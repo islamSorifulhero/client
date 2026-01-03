@@ -23,8 +23,20 @@ const DashboardLayout = () => {
                     <NavLink to="/dashboard" className="block hover:bg-green-600 p-2 rounded">
                         Dashboard Home
                     </NavLink>
+                    <NavLink to="/dashboard/all-issues" className="block hover:bg-green-600 p-2 rounded">
+                        All Issues
+                    </NavLink>
+                    <NavLink to="/dashboard/add-issue" className="block hover:bg-green-600 p-2 rounded">
+                        Add Issues
+                    </NavLink>
                     <NavLink to="/dashboard/my-issues" className="block hover:bg-green-600 p-2 rounded">
                         My Issues
+                    </NavLink>
+                    <NavLink to="/dashboard/add-contribution" className="block hover:bg-green-600 p-2 rounded">
+                        Add Contributions
+                    </NavLink>
+                    <NavLink to="/dashboard/my-contributions" className="block hover:bg-green-600 p-2 rounded">
+                        My Contributions
                     </NavLink>
                     <NavLink to="/dashboard/profile" className="block hover:bg-green-600 p-2 rounded">
                         Profile

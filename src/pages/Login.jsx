@@ -41,7 +41,6 @@ const Login = () => {
   const handleDemoLogin = () => {
     setEmail("demo@user.com");
     setPassword("User123");
-    toast.info("Demo user credentials filled");
   };
 
   return (
