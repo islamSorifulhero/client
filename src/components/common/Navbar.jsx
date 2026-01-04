@@ -22,9 +22,9 @@ const Navbar = ({ toggleTheme, darkMode }) => {
     { path: "/", label: "Home" },
     { path: "/all-issues", label: "All Issues" },
     { path: "/about", label: "About" },
-    { path: "/blog", label: "Blog" },
-    { path: "/privacy", label: "Privacy" },
-    { path: "/support", label: "Support" },
+    { path: "/blog", label: "Blog", private: true },
+    { path: "/privacy", label: "Privacy", private: true },
+    { path: "/support", label: "Support", private: true },
     { path: "/dashboard", label: "Dashboard", private: true },
   ];
 
