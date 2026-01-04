@@ -42,7 +42,7 @@ const About = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-center text-gray-600 max-w-3xl mx-auto mb-10"
+                className="text-center text-gray-400 max-w-3xl mx-auto mb-10"
             >
                 This Community Cleanliness & Issue Reporting Platform helps citizens
                 report local issues like garbage, drainage, and road problems, so that
@@ -99,7 +99,7 @@ const About = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-center text-gray-500 text-sm mt-12"
+                className="text-center text-gray-400 text-sm mt-12"
             >
                 © {new Date().getFullYear()} Community Cleanliness Platform. All rights reserved.
             </motion.p>
