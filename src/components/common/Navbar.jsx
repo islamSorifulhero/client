@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../content/AuthProviders.jsx";
 import { getAuth, signOut } from "firebase/auth";
 import app from "../../firebase/firebase.config.js";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const auth = getAuth(app);
 
@@ -46,7 +47,7 @@ const Navbar = ({ toggleTheme, darkMode }) => {
           </>
         ) : (
           <div className="relative">
-            <img src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="User Avatar" onClick={() => setDropdownOpen(!dropdownOpen)} className="w-9 h-9 rounded-full cursor-pointer border-2 border-white"/>
+            <img src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="User Avatar" onClick={() => setDropdownOpen(!dropdownOpen)} className="w-9 h-9 rounded-full cursor-pointer border-2 border-white" />
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-36 text-center">
                 <p className="px-2 py-1 border-b text-sm font-semibold truncate">{user.displayName || user.email}</p>
@@ -57,9 +58,15 @@ const Navbar = ({ toggleTheme, darkMode }) => {
         )}
 
         {/* Dark/Light Mode Toggle */}
-        <button onClick={toggleTheme} className="ml-4 px-4 py-2 bg-green-600 dark:bg-green-400 text-white dark:text-gray-900 rounded transition duration-300">
-          {darkMode ? "Light Mode" : "Dark Mode"}
+
+        <button
+          onClick={toggleTheme}
+          className="ml-4 p-2 bg-green-600 dark:bg-green-400 text-white dark:text-gray-900 rounded-full text-lg hover:scale-110 transition"
+          title={darkMode ? "Light Mode" : "Dark Mode"}
+        >
+          {darkMode ? <FaSun /> : <FaMoon />}
         </button>
+
       </div>
 
       {/* Mobile menu toggle */}
@@ -81,9 +88,14 @@ const Navbar = ({ toggleTheme, darkMode }) => {
           )}
 
           {/* Dark/Light Toggle */}
-          <button onClick={toggleTheme} className="px-4 py-2 bg-green-600 dark:bg-green-400 text-white dark:text-gray-900 rounded transition duration-300">
-            {darkMode ? "Light Mode" : "Dark Mode"}
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 w-fit bg-green-600 dark:bg-green-400 text-white dark:text-gray-900 rounded-full text-lg transition"
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
           </button>
+
         </div>
       )}
     </nav>
