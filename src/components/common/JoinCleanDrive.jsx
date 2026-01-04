@@ -12,10 +12,10 @@ const JoinCleanDrive = () => {
         Join as a volunteer and take part in local cleanliness campaigns.
       </p>
       <button
-        onClick={() => navigate("/volunteer-register")}
+        onClick={() => navigate("/blog")}
         className="bg-white text-green-700 font-semibold px-6 py-2 rounded-lg hover:bg-green-100 transition"
       >
-        Become a Volunteer
+        Join Clean Drive
       </button>
     </div>
   );

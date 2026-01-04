@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import 'animate.css';
 
 const CommunitySection = () => {
   const [stats, setStats] = useState({
@@ -66,13 +67,6 @@ const CommunitySection = () => {
             <p className="mt-2 text-gray-600 font-semibold">Pending Issues</p>
           </div>
         </div>
-
-        <button
-          onClick={() => navigate("/volunteer-register")}
-          className="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition duration-300"
-        >
-          Join Clean Drive
-        </button>
       </div>
     </section>
   );

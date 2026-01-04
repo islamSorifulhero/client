@@ -51,10 +51,9 @@ const Testimonials = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.2 }}
-                            whileHover={{ y: -10 }} // মাউস নিলে হালকা উপরে উঠবে
+                            whileHover={{ y: -10 }}
                             className="bg-gray-50 dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 flex flex-col items-center text-center relative"
                         >
-                            {/* কোটেশন আইকন */}
                             <div className="absolute top-4 left-6 text-green-200 dark:text-slate-800 text-6xl font-serif">
                                 “
                             </div>

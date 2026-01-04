@@ -46,7 +46,7 @@ const Newsletter = () => {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-green-700 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold shadow-lg"
+                            className="bg-green-700 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold shadow-lg animate__animated animate__pulse animate__infinite"
                         >
                             Subscribe
                         </motion.button>

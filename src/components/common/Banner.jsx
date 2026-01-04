@@ -40,7 +40,7 @@ const Banner = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <button className="btn btn-primary bg-green-700 border-none hover:bg-green-600 text-white px-8">
+              <button className="btn btn-primary bg-green-700 border-none hover:bg-green-600 text-white px-8 animate__animated animate__pulse animate__infinite">
                 Get Started
               </button>
             </motion.div>

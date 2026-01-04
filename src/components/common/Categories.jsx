@@ -44,7 +44,7 @@ const Categories = () => {
           >
             <img src={cat.image} alt={cat.name} className="w-full h-40 object-cover" />
             <div className="p-4 text-center">
-              <h3 className="font-semibold text-lg text-green-700 dark:text-green-400">{cat.name}</h3>
+              <h3 className="font-semibold text-lg text-green-700 dark:text-green-400 animate__animated animate__pulse animate__infinite">{cat.name}</h3>
             </div>
           </motion.div>
         ))}
