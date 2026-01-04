@@ -28,7 +28,7 @@ const Privacy = () => {
         );
     }
     return (
-        <div className="max-w-4xl mx-auto p-6">
+        <div className="max-w-6xl mx-auto p-16">
             <h1 className="text-4xl font-bold text-green-700 mb-6 text-center">
                 Privacy Policy
             </h1>

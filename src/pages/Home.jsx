@@ -12,6 +12,8 @@ import Newsletter from "./Newsletter";
 import FAQ from "./FAQ";
 import Testimonials from "./Testimonials";
 import Swal from "sweetalert2";
+import Blog from "./Blog";
+import About from "./About";
 
 
 const Home = () => {
@@ -79,9 +81,11 @@ const Home = () => {
       </div>
 
       <CommunitySection />
+      <About></About>
       <JoinCleanDrive />
       <Testimonials></Testimonials>
       <Stats></Stats>
+      <Blog></Blog>
       <FAQ></FAQ>
       <Newsletter></Newsletter>
     </div>
